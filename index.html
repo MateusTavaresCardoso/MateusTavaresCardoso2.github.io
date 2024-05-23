@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>CheapShark Deals</title>
+</head>
+<body>
+    <div class="container">
+        <h1>CheapShark Deals</h1>
+        <ul id="deals"></ul>
+    </div>
+    <script>
+        const apiKey = "";
+        const apiUrl = "https://www.cheapshark.com/api/1.0/deals";
+        const dealsList = document.getElementById("deals");
+
+        fetch(`${apiUrl}?key=${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(deal => {
+                    const dealHTML = `
+                        <li class="deal">
+                            <img src="${deal.thumb}" alt="${deal.title}">
+                            <div class="title">${deal.title}</div>
+                            <div class="price">$${deal.price}</div>
+                            <div class="store">${deal.store}</div>
+                        </li>
+                    `;
+                    dealsList.innerHTML += dealHTML;
+                });
+            })
+            .catch(error => console.error("Error:", error));
+    </script>
+</body>
+</html>
